@@ -1,7 +1,7 @@
 import { CreditScore as TCreditScore } from "../api/creditScore/CreditScore";
 
-export const CREDITSCORE_TITLE_FIELD = "id";
+export const CREDITSCORE_TITLE_FIELD = "comment";
 
 export const CreditScoreTitle = (record: TCreditScore): string => {
-  return record.id?.toString() || String(record.id);
+  return record.comment?.toString() || String(record.id);
 };

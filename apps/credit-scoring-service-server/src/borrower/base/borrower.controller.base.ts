@@ -265,6 +265,7 @@ export class BorrowerControllerBase {
           },
         },
 
+        comment: true,
         createdAt: true,
         id: true,
         score: true,

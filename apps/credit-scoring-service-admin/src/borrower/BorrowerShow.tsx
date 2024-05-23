@@ -66,6 +66,7 @@ export const BorrowerShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={BORROWER_TITLE_FIELD} />
             </ReferenceField>
+            <TextField label="Comment" source="comment" />
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
             <TextField label="Score" source="score" />

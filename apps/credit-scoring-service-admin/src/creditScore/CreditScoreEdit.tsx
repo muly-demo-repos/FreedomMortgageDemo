@@ -6,6 +6,7 @@ import {
   EditProps,
   ReferenceInput,
   SelectInput,
+  TextInput,
   NumberInput,
   DateTimeInput,
 } from "react-admin";
@@ -23,6 +24,7 @@ export const CreditScoreEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={BorrowerTitle} />
         </ReferenceInput>
+        <TextInput label="Comment" source="comment" />
         <NumberInput step={1} label="Score" source="score" />
         <DateTimeInput label="ScoreDate" source="scoreDate" />
       </SimpleForm>
