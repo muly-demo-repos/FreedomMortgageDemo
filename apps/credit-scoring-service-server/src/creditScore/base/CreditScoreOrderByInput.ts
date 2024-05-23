@@ -50,17 +50,6 @@ class CreditScoreOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  generatedAt?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   id?: SortOrder;
 
   @ApiProperty({
@@ -73,6 +62,17 @@ class CreditScoreOrderByInput {
     nullable: true,
   })
   score?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  scoreDate?: SortOrder;
 
   @ApiProperty({
     required: false,

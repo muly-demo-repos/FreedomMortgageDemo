@@ -20,12 +20,10 @@ import { BorrowerFindUniqueArgs } from "./BorrowerFindUniqueArgs";
 import { CreateBorrowerArgs } from "./CreateBorrowerArgs";
 import { UpdateBorrowerArgs } from "./UpdateBorrowerArgs";
 import { DeleteBorrowerArgs } from "./DeleteBorrowerArgs";
+import { CreditReportFindManyArgs } from "../../creditReport/base/CreditReportFindManyArgs";
+import { CreditReport } from "../../creditReport/base/CreditReport";
 import { CreditScoreFindManyArgs } from "../../creditScore/base/CreditScoreFindManyArgs";
 import { CreditScore } from "../../creditScore/base/CreditScore";
-import { FinancialRecordFindManyArgs } from "../../financialRecord/base/FinancialRecordFindManyArgs";
-import { FinancialRecord } from "../../financialRecord/base/FinancialRecord";
-import { ScoreReportFindManyArgs } from "../../scoreReport/base/ScoreReportFindManyArgs";
-import { ScoreReport } from "../../scoreReport/base/ScoreReport";
 import { BorrowerService } from "../borrower.service";
 @graphql.Resolver(() => Borrower)
 export class BorrowerResolverBase {
@@ -103,40 +101,26 @@ export class BorrowerResolverBase {
     }
   }
 
+  @graphql.ResolveField(() => [CreditReport], { name: "creditReports" })
+  async findCreditReports(
+    @graphql.Parent() parent: Borrower,
+    @graphql.Args() args: CreditReportFindManyArgs
+  ): Promise<CreditReport[]> {
+    const results = await this.service.findCreditReports(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
   @graphql.ResolveField(() => [CreditScore], { name: "creditScores" })
   async findCreditScores(
     @graphql.Parent() parent: Borrower,
     @graphql.Args() args: CreditScoreFindManyArgs
   ): Promise<CreditScore[]> {
     const results = await this.service.findCreditScores(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @graphql.ResolveField(() => [FinancialRecord], { name: "financialRecords" })
-  async findFinancialRecords(
-    @graphql.Parent() parent: Borrower,
-    @graphql.Args() args: FinancialRecordFindManyArgs
-  ): Promise<FinancialRecord[]> {
-    const results = await this.service.findFinancialRecords(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @graphql.ResolveField(() => [ScoreReport], { name: "scoreReports" })
-  async findScoreReports(
-    @graphql.Parent() parent: Borrower,
-    @graphql.Args() args: ScoreReportFindManyArgs
-  ): Promise<ScoreReport[]> {
-    const results = await this.service.findScoreReports(parent.id, args);
 
     if (!results) {
       return [];

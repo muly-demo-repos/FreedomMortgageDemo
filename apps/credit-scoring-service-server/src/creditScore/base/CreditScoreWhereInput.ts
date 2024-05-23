@@ -14,9 +14,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { BorrowerWhereUniqueInput } from "../../borrower/base/BorrowerWhereUniqueInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 
 @InputType()
 class CreditScoreWhereInput {
@@ -31,17 +31,6 @@ class CreditScoreWhereInput {
     nullable: true,
   })
   borrower?: BorrowerWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: DateTimeNullableFilter,
-  })
-  @Type(() => DateTimeNullableFilter)
-  @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
-    nullable: true,
-  })
-  generatedAt?: DateTimeNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -64,6 +53,17 @@ class CreditScoreWhereInput {
     nullable: true,
   })
   score?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  scoreDate?: DateTimeNullableFilter;
 }
 
 export { CreditScoreWhereInput as CreditScoreWhereInput };

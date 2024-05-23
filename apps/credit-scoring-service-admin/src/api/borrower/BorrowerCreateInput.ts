@@ -1,14 +1,12 @@
+import { CreditReportCreateNestedManyWithoutBorrowersInput } from "./CreditReportCreateNestedManyWithoutBorrowersInput";
 import { CreditScoreCreateNestedManyWithoutBorrowersInput } from "./CreditScoreCreateNestedManyWithoutBorrowersInput";
-import { FinancialRecordCreateNestedManyWithoutBorrowersInput } from "./FinancialRecordCreateNestedManyWithoutBorrowersInput";
-import { ScoreReportCreateNestedManyWithoutBorrowersInput } from "./ScoreReportCreateNestedManyWithoutBorrowersInput";
 
 export type BorrowerCreateInput = {
+  creditReports?: CreditReportCreateNestedManyWithoutBorrowersInput;
   creditScores?: CreditScoreCreateNestedManyWithoutBorrowersInput;
   dateOfBirth?: Date | null;
   email?: string | null;
-  financialRecords?: FinancialRecordCreateNestedManyWithoutBorrowersInput;
   firstName?: string | null;
   lastName?: string | null;
-  phoneNumber?: string | null;
-  scoreReports?: ScoreReportCreateNestedManyWithoutBorrowersInput;
+  ssn?: string | null;
 };

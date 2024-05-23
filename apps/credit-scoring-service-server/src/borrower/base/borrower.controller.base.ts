@@ -22,15 +22,12 @@ import { Borrower } from "./Borrower";
 import { BorrowerFindManyArgs } from "./BorrowerFindManyArgs";
 import { BorrowerWhereUniqueInput } from "./BorrowerWhereUniqueInput";
 import { BorrowerUpdateInput } from "./BorrowerUpdateInput";
+import { CreditReportFindManyArgs } from "../../creditReport/base/CreditReportFindManyArgs";
+import { CreditReport } from "../../creditReport/base/CreditReport";
+import { CreditReportWhereUniqueInput } from "../../creditReport/base/CreditReportWhereUniqueInput";
 import { CreditScoreFindManyArgs } from "../../creditScore/base/CreditScoreFindManyArgs";
 import { CreditScore } from "../../creditScore/base/CreditScore";
 import { CreditScoreWhereUniqueInput } from "../../creditScore/base/CreditScoreWhereUniqueInput";
-import { FinancialRecordFindManyArgs } from "../../financialRecord/base/FinancialRecordFindManyArgs";
-import { FinancialRecord } from "../../financialRecord/base/FinancialRecord";
-import { FinancialRecordWhereUniqueInput } from "../../financialRecord/base/FinancialRecordWhereUniqueInput";
-import { ScoreReportFindManyArgs } from "../../scoreReport/base/ScoreReportFindManyArgs";
-import { ScoreReport } from "../../scoreReport/base/ScoreReport";
-import { ScoreReportWhereUniqueInput } from "../../scoreReport/base/ScoreReportWhereUniqueInput";
 
 export class BorrowerControllerBase {
   constructor(protected readonly service: BorrowerService) {}
@@ -48,7 +45,7 @@ export class BorrowerControllerBase {
         firstName: true,
         id: true,
         lastName: true,
-        phoneNumber: true,
+        ssn: true,
         updatedAt: true,
       },
     });
@@ -68,7 +65,7 @@ export class BorrowerControllerBase {
         firstName: true,
         id: true,
         lastName: true,
-        phoneNumber: true,
+        ssn: true,
         updatedAt: true,
       },
     });
@@ -89,7 +86,7 @@ export class BorrowerControllerBase {
         firstName: true,
         id: true,
         lastName: true,
-        phoneNumber: true,
+        ssn: true,
         updatedAt: true,
       },
     });
@@ -119,7 +116,7 @@ export class BorrowerControllerBase {
           firstName: true,
           id: true,
           lastName: true,
-          phoneNumber: true,
+          ssn: true,
           updatedAt: true,
         },
       });
@@ -149,7 +146,7 @@ export class BorrowerControllerBase {
           firstName: true,
           id: true,
           lastName: true,
-          phoneNumber: true,
+          ssn: true,
           updatedAt: true,
         },
       });
@@ -161,6 +158,95 @@ export class BorrowerControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/creditReports")
+  @ApiNestedQuery(CreditReportFindManyArgs)
+  async findCreditReports(
+    @common.Req() request: Request,
+    @common.Param() params: BorrowerWhereUniqueInput
+  ): Promise<CreditReport[]> {
+    const query = plainToClass(CreditReportFindManyArgs, request.query);
+    const results = await this.service.findCreditReports(params.id, {
+      ...query,
+      select: {
+        borrower: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        creditBureau: {
+          select: {
+            id: true,
+          },
+        },
+
+        details: true,
+        id: true,
+        reportDate: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/creditReports")
+  async connectCreditReports(
+    @common.Param() params: BorrowerWhereUniqueInput,
+    @common.Body() body: CreditReportWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      creditReports: {
+        connect: body,
+      },
+    };
+    await this.service.updateBorrower({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/creditReports")
+  async updateCreditReports(
+    @common.Param() params: BorrowerWhereUniqueInput,
+    @common.Body() body: CreditReportWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      creditReports: {
+        set: body,
+      },
+    };
+    await this.service.updateBorrower({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/creditReports")
+  async disconnectCreditReports(
+    @common.Param() params: BorrowerWhereUniqueInput,
+    @common.Body() body: CreditReportWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      creditReports: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateBorrower({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.Get("/:id/creditScores")
@@ -180,9 +266,9 @@ export class BorrowerControllerBase {
         },
 
         createdAt: true,
-        generatedAt: true,
         id: true,
         score: true,
+        scoreDate: true,
         updatedAt: true,
       },
     });
@@ -235,172 +321,6 @@ export class BorrowerControllerBase {
   ): Promise<void> {
     const data = {
       creditScores: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateBorrower({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Get("/:id/financialRecords")
-  @ApiNestedQuery(FinancialRecordFindManyArgs)
-  async findFinancialRecords(
-    @common.Req() request: Request,
-    @common.Param() params: BorrowerWhereUniqueInput
-  ): Promise<FinancialRecord[]> {
-    const query = plainToClass(FinancialRecordFindManyArgs, request.query);
-    const results = await this.service.findFinancialRecords(params.id, {
-      ...query,
-      select: {
-        bankStatements: true,
-
-        borrower: {
-          select: {
-            id: true,
-          },
-        },
-
-        createdAt: true,
-        id: true,
-        loanHistories: true,
-        transactionRecords: true,
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/financialRecords")
-  async connectFinancialRecords(
-    @common.Param() params: BorrowerWhereUniqueInput,
-    @common.Body() body: FinancialRecordWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      financialRecords: {
-        connect: body,
-      },
-    };
-    await this.service.updateBorrower({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/financialRecords")
-  async updateFinancialRecords(
-    @common.Param() params: BorrowerWhereUniqueInput,
-    @common.Body() body: FinancialRecordWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      financialRecords: {
-        set: body,
-      },
-    };
-    await this.service.updateBorrower({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/financialRecords")
-  async disconnectFinancialRecords(
-    @common.Param() params: BorrowerWhereUniqueInput,
-    @common.Body() body: FinancialRecordWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      financialRecords: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateBorrower({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Get("/:id/scoreReports")
-  @ApiNestedQuery(ScoreReportFindManyArgs)
-  async findScoreReports(
-    @common.Req() request: Request,
-    @common.Param() params: BorrowerWhereUniqueInput
-  ): Promise<ScoreReport[]> {
-    const query = plainToClass(ScoreReportFindManyArgs, request.query);
-    const results = await this.service.findScoreReports(params.id, {
-      ...query,
-      select: {
-        borrower: {
-          select: {
-            id: true,
-          },
-        },
-
-        createdAt: true,
-        generatedAt: true,
-        id: true,
-        reportData: true,
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/scoreReports")
-  async connectScoreReports(
-    @common.Param() params: BorrowerWhereUniqueInput,
-    @common.Body() body: ScoreReportWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      scoreReports: {
-        connect: body,
-      },
-    };
-    await this.service.updateBorrower({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/scoreReports")
-  async updateScoreReports(
-    @common.Param() params: BorrowerWhereUniqueInput,
-    @common.Body() body: ScoreReportWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      scoreReports: {
-        set: body,
-      },
-    };
-    await this.service.updateBorrower({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/scoreReports")
-  async disconnectScoreReports(
-    @common.Param() params: BorrowerWhereUniqueInput,
-    @common.Body() body: ScoreReportWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      scoreReports: {
         disconnect: body,
       },
     };

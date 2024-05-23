@@ -12,7 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { BorrowerWhereUniqueInput } from "../../borrower/base/BorrowerWhereUniqueInput";
-import { ValidateNested, IsOptional, IsDate, IsInt } from "class-validator";
+import { ValidateNested, IsOptional, IsInt, IsDate } from "class-validator";
 import { Type } from "class-transformer";
 
 @InputType()
@@ -31,17 +31,6 @@ class CreditScoreCreateInput {
 
   @ApiProperty({
     required: false,
-  })
-  @IsDate()
-  @Type(() => Date)
-  @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
-  })
-  generatedAt?: Date | null;
-
-  @ApiProperty({
-    required: false,
     type: Number,
   })
   @IsInt()
@@ -50,6 +39,17 @@ class CreditScoreCreateInput {
     nullable: true,
   })
   score?: number | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  scoreDate?: Date | null;
 }
 
 export { CreditScoreCreateInput as CreditScoreCreateInput };

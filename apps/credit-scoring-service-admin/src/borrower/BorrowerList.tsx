@@ -13,12 +13,12 @@ export const BorrowerList = (props: ListProps): React.ReactElement => {
     >
       <Datagrid rowClick="show">
         <DateField source="createdAt" label="Created At" />
-        <TextField label="dateOfBirth" source="dateOfBirth" />
-        <TextField label="email" source="email" />
-        <TextField label="firstName" source="firstName" />
+        <TextField label="DateOfBirth" source="dateOfBirth" />
+        <TextField label="Email" source="email" />
+        <TextField label="FirstName" source="firstName" />
         <TextField label="ID" source="id" />
-        <TextField label="lastName" source="lastName" />
-        <TextField label="phoneNumber" source="phoneNumber" />
+        <TextField label="LastName" source="lastName" />
+        <TextField label="SSN" source="ssn" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>
     </List>

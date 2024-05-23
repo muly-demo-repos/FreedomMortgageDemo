@@ -41,17 +41,6 @@ class CreditScore {
   createdAt!: Date;
 
   @ApiProperty({
-    required: false,
-  })
-  @IsDate()
-  @Type(() => Date)
-  @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
-  })
-  generatedAt!: Date | null;
-
-  @ApiProperty({
     required: true,
     type: String,
   })
@@ -69,6 +58,17 @@ class CreditScore {
     nullable: true,
   })
   score!: number | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  scoreDate!: Date | null;
 
   @ApiProperty({
     required: true,

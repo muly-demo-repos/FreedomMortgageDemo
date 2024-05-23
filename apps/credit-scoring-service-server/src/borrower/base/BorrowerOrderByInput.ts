@@ -94,7 +94,7 @@ class BorrowerOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  phoneNumber?: SortOrder;
+  ssn?: SortOrder;
 
   @ApiProperty({
     required: false,

@@ -6,8 +6,8 @@ import {
   CreateProps,
   ReferenceInput,
   SelectInput,
-  DateTimeInput,
   NumberInput,
+  DateTimeInput,
 } from "react-admin";
 
 import { BorrowerTitle } from "../borrower/BorrowerTitle";
@@ -19,12 +19,12 @@ export const CreditScoreCreate = (props: CreateProps): React.ReactElement => {
         <ReferenceInput
           source="borrower.id"
           reference="Borrower"
-          label="borrower"
+          label="Borrower"
         >
           <SelectInput optionText={BorrowerTitle} />
         </ReferenceInput>
-        <DateTimeInput label="generatedAt" source="generatedAt" />
-        <NumberInput step={1} label="score" source="score" />
+        <NumberInput step={1} label="Score" source="score" />
+        <DateTimeInput label="ScoreDate" source="scoreDate" />
       </SimpleForm>
     </Create>
   );

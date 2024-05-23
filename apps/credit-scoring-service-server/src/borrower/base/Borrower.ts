@@ -13,9 +13,8 @@ import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsDate, ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { CreditReport } from "../../creditReport/base/CreditReport";
 import { CreditScore } from "../../creditScore/base/CreditScore";
-import { FinancialRecord } from "../../financialRecord/base/FinancialRecord";
-import { ScoreReport } from "../../scoreReport/base/ScoreReport";
 
 @ObjectType()
 class Borrower {
@@ -26,6 +25,15 @@ class Borrower {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [CreditReport],
+  })
+  @ValidateNested()
+  @Type(() => CreditReport)
+  @IsOptional()
+  creditReports?: Array<CreditReport>;
 
   @ApiProperty({
     required: false,
@@ -57,15 +65,6 @@ class Borrower {
     nullable: true,
   })
   email!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [FinancialRecord],
-  })
-  @ValidateNested()
-  @Type(() => FinancialRecord)
-  @IsOptional()
-  financialRecords?: Array<FinancialRecord>;
 
   @ApiProperty({
     required: false,
@@ -106,16 +105,7 @@ class Borrower {
   @Field(() => String, {
     nullable: true,
   })
-  phoneNumber!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ScoreReport],
-  })
-  @ValidateNested()
-  @Type(() => ScoreReport)
-  @IsOptional()
-  scoreReports?: Array<ScoreReport>;
+  ssn!: string | null;
 
   @ApiProperty({
     required: true,

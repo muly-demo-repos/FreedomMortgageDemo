@@ -14,9 +14,8 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Borrower as PrismaBorrower,
+  CreditReport as PrismaCreditReport,
   CreditScore as PrismaCreditScore,
-  FinancialRecord as PrismaFinancialRecord,
-  ScoreReport as PrismaScoreReport,
 } from "@prisma/client";
 
 export class BorrowerServiceBase {
@@ -52,6 +51,17 @@ export class BorrowerServiceBase {
     return this.prisma.borrower.delete(args);
   }
 
+  async findCreditReports(
+    parentId: string,
+    args: Prisma.CreditReportFindManyArgs
+  ): Promise<PrismaCreditReport[]> {
+    return this.prisma.borrower
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .creditReports(args);
+  }
+
   async findCreditScores(
     parentId: string,
     args: Prisma.CreditScoreFindManyArgs
@@ -61,27 +71,5 @@ export class BorrowerServiceBase {
         where: { id: parentId },
       })
       .creditScores(args);
-  }
-
-  async findFinancialRecords(
-    parentId: string,
-    args: Prisma.FinancialRecordFindManyArgs
-  ): Promise<PrismaFinancialRecord[]> {
-    return this.prisma.borrower
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .financialRecords(args);
-  }
-
-  async findScoreReports(
-    parentId: string,
-    args: Prisma.ScoreReportFindManyArgs
-  ): Promise<PrismaScoreReport[]> {
-    return this.prisma.borrower
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .scoreReports(args);
   }
 }

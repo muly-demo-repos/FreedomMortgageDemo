@@ -1,8 +1,9 @@
 import { Module } from "@nestjs/common";
-import { FinancialRecordModule } from "./financialRecord/financialRecord.module";
-import { CreditScoreModule } from "./creditScore/creditScore.module";
-import { ScoreReportModule } from "./scoreReport/scoreReport.module";
 import { BorrowerModule } from "./borrower/borrower.module";
+import { CreditScoreModule } from "./creditScore/creditScore.module";
+import { FinancialInstitutionModule } from "./financialInstitution/financialInstitution.module";
+import { CreditReportModule } from "./creditReport/creditReport.module";
+import { CreditBureauModule } from "./creditBureau/creditBureau.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -15,10 +16,11 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 @Module({
   controllers: [],
   imports: [
-    FinancialRecordModule,
-    CreditScoreModule,
-    ScoreReportModule,
     BorrowerModule,
+    CreditScoreModule,
+    FinancialInstitutionModule,
+    CreditReportModule,
+    CreditBureauModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

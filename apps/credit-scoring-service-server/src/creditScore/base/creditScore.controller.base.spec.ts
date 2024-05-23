@@ -19,32 +19,32 @@ const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
-  generatedAt: new Date(),
   id: "exampleId",
   score: 42,
+  scoreDate: new Date(),
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
-  generatedAt: new Date(),
   id: "exampleId",
   score: 42,
+  scoreDate: new Date(),
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
-    generatedAt: new Date(),
     id: "exampleId",
     score: 42,
+    scoreDate: new Date(),
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
-  generatedAt: new Date(),
   id: "exampleId",
   score: 42,
+  scoreDate: new Date(),
   updatedAt: new Date(),
 };
 
@@ -131,7 +131,7 @@ describe("CreditScore", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        generatedAt: CREATE_RESULT.generatedAt.toISOString(),
+        scoreDate: CREATE_RESULT.scoreDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -144,7 +144,7 @@ describe("CreditScore", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
-          generatedAt: FIND_MANY_RESULT[0].generatedAt.toISOString(),
+          scoreDate: FIND_MANY_RESULT[0].scoreDate.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -168,7 +168,7 @@ describe("CreditScore", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
-        generatedAt: FIND_ONE_RESULT.generatedAt.toISOString(),
+        scoreDate: FIND_ONE_RESULT.scoreDate.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -182,7 +182,7 @@ describe("CreditScore", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        generatedAt: CREATE_RESULT.generatedAt.toISOString(),
+        scoreDate: CREATE_RESULT.scoreDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

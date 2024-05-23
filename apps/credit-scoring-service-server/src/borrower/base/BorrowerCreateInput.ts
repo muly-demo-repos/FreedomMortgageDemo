@@ -11,14 +11,25 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CreditScoreCreateNestedManyWithoutBorrowersInput } from "./CreditScoreCreateNestedManyWithoutBorrowersInput";
+import { CreditReportCreateNestedManyWithoutBorrowersInput } from "./CreditReportCreateNestedManyWithoutBorrowersInput";
 import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
-import { FinancialRecordCreateNestedManyWithoutBorrowersInput } from "./FinancialRecordCreateNestedManyWithoutBorrowersInput";
-import { ScoreReportCreateNestedManyWithoutBorrowersInput } from "./ScoreReportCreateNestedManyWithoutBorrowersInput";
+import { CreditScoreCreateNestedManyWithoutBorrowersInput } from "./CreditScoreCreateNestedManyWithoutBorrowersInput";
 
 @InputType()
 class BorrowerCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => CreditReportCreateNestedManyWithoutBorrowersInput,
+  })
+  @ValidateNested()
+  @Type(() => CreditReportCreateNestedManyWithoutBorrowersInput)
+  @IsOptional()
+  @Field(() => CreditReportCreateNestedManyWithoutBorrowersInput, {
+    nullable: true,
+  })
+  creditReports?: CreditReportCreateNestedManyWithoutBorrowersInput;
+
   @ApiProperty({
     required: false,
     type: () => CreditScoreCreateNestedManyWithoutBorrowersInput,
@@ -55,18 +66,6 @@ class BorrowerCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => FinancialRecordCreateNestedManyWithoutBorrowersInput,
-  })
-  @ValidateNested()
-  @Type(() => FinancialRecordCreateNestedManyWithoutBorrowersInput)
-  @IsOptional()
-  @Field(() => FinancialRecordCreateNestedManyWithoutBorrowersInput, {
-    nullable: true,
-  })
-  financialRecords?: FinancialRecordCreateNestedManyWithoutBorrowersInput;
-
-  @ApiProperty({
-    required: false,
     type: String,
   })
   @IsString()
@@ -96,19 +95,7 @@ class BorrowerCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  phoneNumber?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => ScoreReportCreateNestedManyWithoutBorrowersInput,
-  })
-  @ValidateNested()
-  @Type(() => ScoreReportCreateNestedManyWithoutBorrowersInput)
-  @IsOptional()
-  @Field(() => ScoreReportCreateNestedManyWithoutBorrowersInput, {
-    nullable: true,
-  })
-  scoreReports?: ScoreReportCreateNestedManyWithoutBorrowersInput;
+  ssn?: string | null;
 }
 
 export { BorrowerCreateInput as BorrowerCreateInput };

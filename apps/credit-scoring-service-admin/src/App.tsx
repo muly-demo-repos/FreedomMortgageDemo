@@ -5,22 +5,26 @@ import { theme } from "./theme/theme";
 import Login from "./Login";
 import "./App.scss";
 import Dashboard from "./pages/Dashboard";
-import { FinancialRecordList } from "./financialRecord/FinancialRecordList";
-import { FinancialRecordCreate } from "./financialRecord/FinancialRecordCreate";
-import { FinancialRecordEdit } from "./financialRecord/FinancialRecordEdit";
-import { FinancialRecordShow } from "./financialRecord/FinancialRecordShow";
-import { CreditScoreList } from "./creditScore/CreditScoreList";
-import { CreditScoreCreate } from "./creditScore/CreditScoreCreate";
-import { CreditScoreEdit } from "./creditScore/CreditScoreEdit";
-import { CreditScoreShow } from "./creditScore/CreditScoreShow";
-import { ScoreReportList } from "./scoreReport/ScoreReportList";
-import { ScoreReportCreate } from "./scoreReport/ScoreReportCreate";
-import { ScoreReportEdit } from "./scoreReport/ScoreReportEdit";
-import { ScoreReportShow } from "./scoreReport/ScoreReportShow";
 import { BorrowerList } from "./borrower/BorrowerList";
 import { BorrowerCreate } from "./borrower/BorrowerCreate";
 import { BorrowerEdit } from "./borrower/BorrowerEdit";
 import { BorrowerShow } from "./borrower/BorrowerShow";
+import { CreditScoreList } from "./creditScore/CreditScoreList";
+import { CreditScoreCreate } from "./creditScore/CreditScoreCreate";
+import { CreditScoreEdit } from "./creditScore/CreditScoreEdit";
+import { CreditScoreShow } from "./creditScore/CreditScoreShow";
+import { FinancialInstitutionList } from "./financialInstitution/FinancialInstitutionList";
+import { FinancialInstitutionCreate } from "./financialInstitution/FinancialInstitutionCreate";
+import { FinancialInstitutionEdit } from "./financialInstitution/FinancialInstitutionEdit";
+import { FinancialInstitutionShow } from "./financialInstitution/FinancialInstitutionShow";
+import { CreditReportList } from "./creditReport/CreditReportList";
+import { CreditReportCreate } from "./creditReport/CreditReportCreate";
+import { CreditReportEdit } from "./creditReport/CreditReportEdit";
+import { CreditReportShow } from "./creditReport/CreditReportShow";
+import { CreditBureauList } from "./creditBureau/CreditBureauList";
+import { CreditBureauCreate } from "./creditBureau/CreditBureauCreate";
+import { CreditBureauEdit } from "./creditBureau/CreditBureauEdit";
+import { CreditBureauShow } from "./creditBureau/CreditBureauShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -48,11 +52,11 @@ const App = (): React.ReactElement => {
         loginPage={Login}
       >
         <Resource
-          name="FinancialRecord"
-          list={FinancialRecordList}
-          edit={FinancialRecordEdit}
-          create={FinancialRecordCreate}
-          show={FinancialRecordShow}
+          name="Borrower"
+          list={BorrowerList}
+          edit={BorrowerEdit}
+          create={BorrowerCreate}
+          show={BorrowerShow}
         />
         <Resource
           name="CreditScore"
@@ -62,18 +66,25 @@ const App = (): React.ReactElement => {
           show={CreditScoreShow}
         />
         <Resource
-          name="ScoreReport"
-          list={ScoreReportList}
-          edit={ScoreReportEdit}
-          create={ScoreReportCreate}
-          show={ScoreReportShow}
+          name="FinancialInstitution"
+          list={FinancialInstitutionList}
+          edit={FinancialInstitutionEdit}
+          create={FinancialInstitutionCreate}
+          show={FinancialInstitutionShow}
         />
         <Resource
-          name="Borrower"
-          list={BorrowerList}
-          edit={BorrowerEdit}
-          create={BorrowerCreate}
-          show={BorrowerShow}
+          name="CreditReport"
+          list={CreditReportList}
+          edit={CreditReportEdit}
+          create={CreditReportCreate}
+          show={CreditReportShow}
+        />
+        <Resource
+          name="CreditBureau"
+          list={CreditBureauList}
+          edit={CreditBureauEdit}
+          create={CreditBureauCreate}
+          show={CreditBureauShow}
         />
       </Admin>
     </div>

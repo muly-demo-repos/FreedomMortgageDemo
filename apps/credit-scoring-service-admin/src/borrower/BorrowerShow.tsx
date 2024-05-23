@@ -12,19 +12,47 @@ import {
 } from "react-admin";
 
 import { BORROWER_TITLE_FIELD } from "./BorrowerTitle";
+import { CREDITBUREAU_TITLE_FIELD } from "../creditBureau/CreditBureauTitle";
 
 export const BorrowerShow = (props: ShowProps): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
-        <TextField label="dateOfBirth" source="dateOfBirth" />
-        <TextField label="email" source="email" />
-        <TextField label="firstName" source="firstName" />
+        <TextField label="DateOfBirth" source="dateOfBirth" />
+        <TextField label="Email" source="email" />
+        <TextField label="FirstName" source="firstName" />
         <TextField label="ID" source="id" />
-        <TextField label="lastName" source="lastName" />
-        <TextField label="phoneNumber" source="phoneNumber" />
+        <TextField label="LastName" source="lastName" />
+        <TextField label="SSN" source="ssn" />
         <DateField source="updatedAt" label="Updated At" />
+        <ReferenceManyField
+          reference="CreditReport"
+          target="borrowerId"
+          label="CreditReports"
+        >
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="Borrower"
+              source="borrower.id"
+              reference="Borrower"
+            >
+              <TextField source={BORROWER_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="createdAt" label="Created At" />
+            <ReferenceField
+              label="CreditBureau"
+              source="creditbureau.id"
+              reference="CreditBureau"
+            >
+              <TextField source={CREDITBUREAU_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Details" source="details" />
+            <TextField label="ID" source="id" />
+            <TextField label="ReportDate" source="reportDate" />
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
         <ReferenceManyField
           reference="CreditScore"
           target="borrowerId"
@@ -32,28 +60,7 @@ export const BorrowerShow = (props: ShowProps): React.ReactElement => {
         >
           <Datagrid rowClick="show">
             <ReferenceField
-              label="borrower"
-              source="borrower.id"
-              reference="Borrower"
-            >
-              <TextField source={BORROWER_TITLE_FIELD} />
-            </ReferenceField>
-            <DateField source="createdAt" label="Created At" />
-            <TextField label="generatedAt" source="generatedAt" />
-            <TextField label="ID" source="id" />
-            <TextField label="score" source="score" />
-            <DateField source="updatedAt" label="Updated At" />
-          </Datagrid>
-        </ReferenceManyField>
-        <ReferenceManyField
-          reference="FinancialRecord"
-          target="borrowerId"
-          label="FinancialRecords"
-        >
-          <Datagrid rowClick="show">
-            <TextField label="bankStatements" source="bankStatements" />
-            <ReferenceField
-              label="borrower"
+              label="Borrower"
               source="borrower.id"
               reference="Borrower"
             >
@@ -61,28 +68,8 @@ export const BorrowerShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
-            <TextField label="loanHistories" source="loanHistories" />
-            <TextField label="transactionRecords" source="transactionRecords" />
-            <DateField source="updatedAt" label="Updated At" />
-          </Datagrid>
-        </ReferenceManyField>
-        <ReferenceManyField
-          reference="ScoreReport"
-          target="borrowerId"
-          label="ScoreReports"
-        >
-          <Datagrid rowClick="show">
-            <ReferenceField
-              label="borrower"
-              source="borrower.id"
-              reference="Borrower"
-            >
-              <TextField source={BORROWER_TITLE_FIELD} />
-            </ReferenceField>
-            <DateField source="createdAt" label="Created At" />
-            <TextField label="generatedAt" source="generatedAt" />
-            <TextField label="ID" source="id" />
-            <TextField label="reportData" source="reportData" />
+            <TextField label="Score" source="score" />
+            <TextField label="ScoreDate" source="scoreDate" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>

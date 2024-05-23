@@ -1,17 +1,15 @@
+import { CreditReport } from "../creditReport/CreditReport";
 import { CreditScore } from "../creditScore/CreditScore";
-import { FinancialRecord } from "../financialRecord/FinancialRecord";
-import { ScoreReport } from "../scoreReport/ScoreReport";
 
 export type Borrower = {
   createdAt: Date;
+  creditReports?: Array<CreditReport>;
   creditScores?: Array<CreditScore>;
   dateOfBirth: Date | null;
   email: string | null;
-  financialRecords?: Array<FinancialRecord>;
   firstName: string | null;
   id: string;
   lastName: string | null;
-  phoneNumber: string | null;
-  scoreReports?: Array<ScoreReport>;
+  ssn: string | null;
   updatedAt: Date;
 };

@@ -14,16 +14,16 @@ export const CreditScoreShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <ReferenceField
-          label="borrower"
+          label="Borrower"
           source="borrower.id"
           reference="Borrower"
         >
           <TextField source={BORROWER_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />
-        <TextField label="generatedAt" source="generatedAt" />
         <TextField label="ID" source="id" />
-        <TextField label="score" source="score" />
+        <TextField label="Score" source="score" />
+        <TextField label="ScoreDate" source="scoreDate" />
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>
     </Show>

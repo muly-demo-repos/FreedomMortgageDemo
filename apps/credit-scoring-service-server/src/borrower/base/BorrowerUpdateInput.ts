@@ -11,14 +11,25 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CreditScoreUpdateManyWithoutBorrowersInput } from "./CreditScoreUpdateManyWithoutBorrowersInput";
+import { CreditReportUpdateManyWithoutBorrowersInput } from "./CreditReportUpdateManyWithoutBorrowersInput";
 import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
-import { FinancialRecordUpdateManyWithoutBorrowersInput } from "./FinancialRecordUpdateManyWithoutBorrowersInput";
-import { ScoreReportUpdateManyWithoutBorrowersInput } from "./ScoreReportUpdateManyWithoutBorrowersInput";
+import { CreditScoreUpdateManyWithoutBorrowersInput } from "./CreditScoreUpdateManyWithoutBorrowersInput";
 
 @InputType()
 class BorrowerUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => CreditReportUpdateManyWithoutBorrowersInput,
+  })
+  @ValidateNested()
+  @Type(() => CreditReportUpdateManyWithoutBorrowersInput)
+  @IsOptional()
+  @Field(() => CreditReportUpdateManyWithoutBorrowersInput, {
+    nullable: true,
+  })
+  creditReports?: CreditReportUpdateManyWithoutBorrowersInput;
+
   @ApiProperty({
     required: false,
     type: () => CreditScoreUpdateManyWithoutBorrowersInput,
@@ -55,18 +66,6 @@ class BorrowerUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => FinancialRecordUpdateManyWithoutBorrowersInput,
-  })
-  @ValidateNested()
-  @Type(() => FinancialRecordUpdateManyWithoutBorrowersInput)
-  @IsOptional()
-  @Field(() => FinancialRecordUpdateManyWithoutBorrowersInput, {
-    nullable: true,
-  })
-  financialRecords?: FinancialRecordUpdateManyWithoutBorrowersInput;
-
-  @ApiProperty({
-    required: false,
     type: String,
   })
   @IsString()
@@ -96,19 +95,7 @@ class BorrowerUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  phoneNumber?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => ScoreReportUpdateManyWithoutBorrowersInput,
-  })
-  @ValidateNested()
-  @Type(() => ScoreReportUpdateManyWithoutBorrowersInput)
-  @IsOptional()
-  @Field(() => ScoreReportUpdateManyWithoutBorrowersInput, {
-    nullable: true,
-  })
-  scoreReports?: ScoreReportUpdateManyWithoutBorrowersInput;
+  ssn?: string | null;
 }
 
 export { BorrowerUpdateInput as BorrowerUpdateInput };

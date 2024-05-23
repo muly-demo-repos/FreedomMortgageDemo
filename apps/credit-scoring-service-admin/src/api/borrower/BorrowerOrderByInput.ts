@@ -7,6 +7,6 @@ export type BorrowerOrderByInput = {
   firstName?: SortOrder;
   id?: SortOrder;
   lastName?: SortOrder;
-  phoneNumber?: SortOrder;
+  ssn?: SortOrder;
   updatedAt?: SortOrder;
 };

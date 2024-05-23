@@ -48,9 +48,9 @@ export class CreditScoreControllerBase {
         },
 
         createdAt: true,
-        generatedAt: true,
         id: true,
         score: true,
+        scoreDate: true,
         updatedAt: true,
       },
     });
@@ -71,9 +71,9 @@ export class CreditScoreControllerBase {
         },
 
         createdAt: true,
-        generatedAt: true,
         id: true,
         score: true,
+        scoreDate: true,
         updatedAt: true,
       },
     });
@@ -95,9 +95,9 @@ export class CreditScoreControllerBase {
         },
 
         createdAt: true,
-        generatedAt: true,
         id: true,
         score: true,
+        scoreDate: true,
         updatedAt: true,
       },
     });
@@ -136,9 +136,9 @@ export class CreditScoreControllerBase {
           },
 
           createdAt: true,
-          generatedAt: true,
           id: true,
           score: true,
+          scoreDate: true,
           updatedAt: true,
         },
       });
@@ -169,9 +169,9 @@ export class CreditScoreControllerBase {
           },
 
           createdAt: true,
-          generatedAt: true,
           id: true,
           score: true,
+          scoreDate: true,
           updatedAt: true,
         },
       });

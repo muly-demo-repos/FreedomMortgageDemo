@@ -11,17 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CreditScoreListRelationFilter } from "../../creditScore/base/CreditScoreListRelationFilter";
+import { CreditReportListRelationFilter } from "../../creditReport/base/CreditReportListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { CreditScoreListRelationFilter } from "../../creditScore/base/CreditScoreListRelationFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { FinancialRecordListRelationFilter } from "../../financialRecord/base/FinancialRecordListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { ScoreReportListRelationFilter } from "../../scoreReport/base/ScoreReportListRelationFilter";
 
 @InputType()
 class BorrowerWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => CreditReportListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => CreditReportListRelationFilter)
+  @IsOptional()
+  @Field(() => CreditReportListRelationFilter, {
+    nullable: true,
+  })
+  creditReports?: CreditReportListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: () => CreditScoreListRelationFilter,
@@ -55,18 +66,6 @@ class BorrowerWhereInput {
     nullable: true,
   })
   email?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => FinancialRecordListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => FinancialRecordListRelationFilter)
-  @IsOptional()
-  @Field(() => FinancialRecordListRelationFilter, {
-    nullable: true,
-  })
-  financialRecords?: FinancialRecordListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -110,19 +109,7 @@ class BorrowerWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  phoneNumber?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => ScoreReportListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => ScoreReportListRelationFilter)
-  @IsOptional()
-  @Field(() => ScoreReportListRelationFilter, {
-    nullable: true,
-  })
-  scoreReports?: ScoreReportListRelationFilter;
+  ssn?: StringNullableFilter;
 }
 
 export { BorrowerWhereInput as BorrowerWhereInput };
