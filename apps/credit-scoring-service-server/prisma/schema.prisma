@@ -1,0 +1,59 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Borrower {
+  createdAt     DateTime       @default(now())
+  creditReports CreditReport[]
+  creditScores  CreditScore[]
+  dateOfBirth   DateTime?
+  email         String?
+  firstName     String?
+  id            String         @id @default(cuid())
+  lastName      String?
+  ssn           String?
+  updatedAt     DateTime       @updatedAt
+}
+
+model CreditScore {
+  borrower   Borrower? @relation(fields: [borrowerId], references: [id])
+  borrowerId String?
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  score      Int?
+  scoreDate  DateTime?
+  updatedAt  DateTime  @updatedAt
+}
+
+model FinancialInstitution {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String?
+  updatedAt DateTime @updatedAt
+}
+
+model CreditReport {
+  borrower       Borrower?     @relation(fields: [borrowerId], references: [id])
+  borrowerId     String?
+  createdAt      DateTime      @default(now())
+  creditBureau   CreditBureau? @relation(fields: [creditBureauId], references: [id])
+  creditBureauId String?
+  details        String?
+  id             String        @id @default(cuid())
+  reportDate     DateTime?
+  updatedAt      DateTime      @updatedAt
+}
+
+model CreditBureau {
+  address       String?
+  createdAt     DateTime       @default(now())
+  creditReports CreditReport[]
+  id            String         @id @default(cuid())
+  name          String?
+  updatedAt     DateTime       @updatedAt
+}
