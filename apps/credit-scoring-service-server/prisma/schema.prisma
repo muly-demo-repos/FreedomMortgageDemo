@@ -1,5 +1,5 @@
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DB_URL")
 }
 
@@ -14,7 +14,7 @@ model Borrower {
   dateOfBirth   DateTime?
   email         String?
   firstName     String?
-  id            String         @id @default(cuid())
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
   lastName      String?
   ssn           String?
   updatedAt     DateTime       @updatedAt
@@ -22,9 +22,9 @@ model Borrower {
 
 model CreditScore {
   borrower   Borrower? @relation(fields: [borrowerId], references: [id])
-  borrowerId String?
+  borrowerId String?   @db.ObjectId
   createdAt  DateTime  @default(now())
-  id         String    @id @default(cuid())
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
   score      Int?
   scoreDate  DateTime?
   updatedAt  DateTime  @updatedAt
@@ -32,19 +32,19 @@ model CreditScore {
 
 model FinancialInstitution {
   createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String?
   updatedAt DateTime @updatedAt
 }
 
 model CreditReport {
   borrower       Borrower?     @relation(fields: [borrowerId], references: [id])
-  borrowerId     String?
+  borrowerId     String?       @db.ObjectId
   createdAt      DateTime      @default(now())
   creditBureau   CreditBureau? @relation(fields: [creditBureauId], references: [id])
-  creditBureauId String?
+  creditBureauId String?       @db.ObjectId
   details        String?
-  id             String        @id @default(cuid())
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
   reportDate     DateTime?
   updatedAt      DateTime      @updatedAt
 }
@@ -53,7 +53,7 @@ model CreditBureau {
   address       String?
   createdAt     DateTime       @default(now())
   creditReports CreditReport[]
-  id            String         @id @default(cuid())
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
   updatedAt     DateTime       @updatedAt
 }
