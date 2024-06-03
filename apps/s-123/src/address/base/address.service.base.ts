@@ -50,7 +50,7 @@ export class AddressServiceBase {
   }
 
   async findCustomers(
-    parentId: string,
+    parentId: number,
     args: Prisma.CustomerFindManyArgs
   ): Promise<PrismaCustomer[]> {
     return this.prisma.address
