@@ -15,8 +15,8 @@ import { Borrower } from "../../borrower/base/Borrower";
 import {
   ValidateNested,
   IsOptional,
-  IsDate,
   IsString,
+  IsDate,
   IsInt,
 } from "class-validator";
 import { Type } from "class-transformer";
@@ -31,6 +31,17 @@ class CreditScore {
   @Type(() => Borrower)
   @IsOptional()
   borrower?: Borrower | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  comment!: string | null;
 
   @ApiProperty({
     required: true,

@@ -47,6 +47,7 @@ export class CreditScoreControllerBase {
           },
         },
 
+        comment: true,
         createdAt: true,
         id: true,
         score: true,
@@ -70,6 +71,7 @@ export class CreditScoreControllerBase {
           },
         },
 
+        comment: true,
         createdAt: true,
         id: true,
         score: true,
@@ -94,6 +96,7 @@ export class CreditScoreControllerBase {
           },
         },
 
+        comment: true,
         createdAt: true,
         id: true,
         score: true,
@@ -135,6 +138,7 @@ export class CreditScoreControllerBase {
             },
           },
 
+          comment: true,
           createdAt: true,
           id: true,
           score: true,
@@ -168,6 +172,7 @@ export class CreditScoreControllerBase {
             },
           },
 
+          comment: true,
           createdAt: true,
           id: true,
           score: true,

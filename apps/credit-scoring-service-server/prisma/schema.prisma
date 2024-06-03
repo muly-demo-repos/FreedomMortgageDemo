@@ -23,6 +23,7 @@ model Borrower {
 model CreditScore {
   borrower   Borrower? @relation(fields: [borrowerId], references: [id])
   borrowerId String?   @db.ObjectId
+  comment    String?
   createdAt  DateTime  @default(now())
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   score      Int?

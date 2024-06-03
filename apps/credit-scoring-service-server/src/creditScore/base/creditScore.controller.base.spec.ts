@@ -18,6 +18,7 @@ import { CreditScoreService } from "../creditScore.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  comment: "exampleComment",
   createdAt: new Date(),
   id: "exampleId",
   score: 42,
@@ -25,6 +26,7 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  comment: "exampleComment",
   createdAt: new Date(),
   id: "exampleId",
   score: 42,
@@ -33,6 +35,7 @@ const CREATE_RESULT = {
 };
 const FIND_MANY_RESULT = [
   {
+    comment: "exampleComment",
     createdAt: new Date(),
     id: "exampleId",
     score: 42,
@@ -41,6 +44,7 @@ const FIND_MANY_RESULT = [
   },
 ];
 const FIND_ONE_RESULT = {
+  comment: "exampleComment",
   createdAt: new Date(),
   id: "exampleId",
   score: 42,
